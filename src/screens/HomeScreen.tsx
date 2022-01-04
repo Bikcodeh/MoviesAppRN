@@ -1,16 +1,13 @@
 import React from 'react'
-import { ActivityIndicator, Button, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/core';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigation/Navigation';
+import { ActivityIndicator, View } from 'react-native'
 import { useMovies } from './../hooks/useMovies';
-
-type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>
+import { MoviePoster } from '../components/MoviePoster';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const HomeScreen = () => {
 
+    const { top } = useSafeAreaInsets()
     const { moviesCurrently, isLoading } = useMovies()
-    const navigation = useNavigation<homeScreenProp>()
 
     if(isLoading) {
         return (
@@ -21,9 +18,8 @@ export const HomeScreen = () => {
     }
 
     return (
-        <View>
-            <Text>Home screen</Text>
-            <Button title='ir detalle' onPress={() => navigation.navigate('Detail')} />
+        <View style={{ marginTop: top + 20}}>
+            <MoviePoster movie={ moviesCurrently[0] } />
         </View>
     )
 }
