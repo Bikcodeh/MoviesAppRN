@@ -1,21 +1,24 @@
-import React, { useEffect } from 'react'
-import { Button, Text, View } from 'react-native'
+import React from 'react'
+import { ActivityIndicator, Button, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/Navigation';
-import movieDB from '../api/MovieDB';
-import { MovieDBNowPlaying } from '../interfaces/movieInterface';
+import { useMovies } from './../hooks/useMovies';
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, 'Home'>
 
 export const HomeScreen = () => {
 
-    useEffect(() => {
-        movieDB.get<MovieDBNowPlaying>('/now_playing')
-            .then( resp => console.log(resp.data.results[0].title))
-    }, [])
-
+    const { moviesCurrently, isLoading } = useMovies()
     const navigation = useNavigation<homeScreenProp>()
+
+    if(isLoading) {
+        return (
+            <View style= {{ flex: 1, justifyContent: 'center', alignContent: 'center' }}>
+                <ActivityIndicator color='red' size={50} />
+            </View>
+        )
+    }
 
     return (
         <View>
