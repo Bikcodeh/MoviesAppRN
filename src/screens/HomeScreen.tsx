@@ -32,11 +32,11 @@ export const HomeScreen = () => {
                         renderItem={({ item }: any) => <MoviePoster movie={item} />}
                         sliderWidth={windowWidth}
                         itemWidth={300}
+                        inactiveSlideOpacity={0.9}
                     />
                 </View>
                 { /* Favorite movies */}
-                <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Top movies</Text>
-                <MoviesCarousel movies={ moviesCurrently } />
+                <MoviesCarousel movies={ moviesCurrently } title='Top movies' />
             </View>
         </ScrollView>
     )
