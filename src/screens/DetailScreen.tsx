@@ -1,17 +1,62 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { RootStackParamList } from '../navigation/Navigation'
 
-interface Props extends StackScreenProps<RootStackParamList, 'Detail'> {};
+interface Props extends StackScreenProps<RootStackParamList, 'Detail'> { };
 
-export const DetailScreen = ({route}: Props) => {
-    
+const screenHeight = Dimensions.get('screen').height
+
+export const DetailScreen = ({ route }: Props) => {
+
     const movie = route.params;
+    const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
     return (
-        <View>
-            <Text> {movie.title} </Text>
-        </View>
+        <ScrollView>
+            <View style={styles.imageContainer}>
+                <Image
+                    source={{ uri }}
+                    style={styles.posterImage}
+                />
+            </View>
+
+            <View style={styles.marginContainer}>
+                <Text style={styles.subtitle}>{movie.original_title}</Text>
+                <Text style={styles.title} >{movie.title}</Text>
+            </View>
+        </ScrollView>
     )
 }
+
+const styles = StyleSheet.create({
+    posterImage: {
+        flex: 1
+    },
+    imageContainer: {
+        overflow: 'hidden',
+        width: '100%',
+        height: screenHeight * 0.7,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.24,
+        shadowRadius: 7,
+        elevation: 9,
+        borderBottomEndRadius: 25,
+        borderBottomStartRadius: 25,
+    },
+    marginContainer: {
+        marginHorizontal: 20,
+        marginTop: 20
+    },
+    subtitle: {
+        fontSize: 18,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold'
+    }
+})

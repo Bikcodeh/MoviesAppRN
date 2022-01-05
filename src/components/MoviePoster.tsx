@@ -18,9 +18,9 @@ export const MoviePoster = ({ movie, width = 300, height = 420 }: Props) => {
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     return (
-        <TouchableOpacity 
-        onPress={ () => navigation.navigate('Detail', movie) }
-        activeOpacity={0.8}>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Detail', movie)}
+            activeOpacity={0.8}>
             <View style={{
                 width,
                 height,
