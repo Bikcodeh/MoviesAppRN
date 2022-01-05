@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
-import { ActivityIndicator, Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { RootStackParamList } from '../navigation/Navigation'
@@ -11,7 +11,7 @@ interface Props extends StackScreenProps<RootStackParamList, 'Detail'> { };
 
 const screenHeight = Dimensions.get('screen').height
 
-export const DetailScreen = ({ route }: Props) => {
+export const DetailScreen = ({ route, navigation }: Props) => {
 
     const movie = route.params;
     const { isLoading, cast, movieFull } = useMovieDetails(movie.id);
@@ -35,7 +35,15 @@ export const DetailScreen = ({ route }: Props) => {
                     ? <ActivityIndicator size={35} color="grey" style={{ marginTop: 0 }} />
                     : <MovieDetails movieFull={movieFull!} cast={cast} />
             }
-
+            <View style={styles.backButton}>
+                <TouchableOpacity
+                onPress={ () => navigation.pop() }>
+                    <Icon
+                        color="white"
+                        name="arrow-back-outline"
+                        size={30} />
+                </TouchableOpacity>
+            </View>
         </ScrollView>
     )
 }
@@ -69,5 +77,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold'
+    },
+    backButton: {
+        position: 'absolute',
+        zIndex: 999,
+        elevation: 9,
+        top: 30,
+        left: 5
     }
 })
