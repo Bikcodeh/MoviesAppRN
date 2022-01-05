@@ -6,6 +6,7 @@ import Carousel from 'react-native-snap-carousel';
 import { useMovies } from './../hooks/useMovies';
 import { MoviePoster } from '../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { MoviesCarousel } from './../components/MoviesCarousel';
 
 const { width: windowWidth } = Dimensions.get('window');
 
@@ -34,16 +35,8 @@ export const HomeScreen = () => {
                     />
                 </View>
                 { /* Favorite movies */}
-                <View style={{ height: 250 }}>
-                    <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Top movies</Text>
-                    <FlatList
-                        data={moviesCurrently}
-                        renderItem={({ item }: any) => <MoviePoster movie={item} width={140} height={200} />}
-                        keyExtractor={(item) => item.id.toString()}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                    />
-                </View>
+                <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Top movies</Text>
+                <MoviesCarousel movies={ moviesCurrently } />
             </View>
         </ScrollView>
     )
