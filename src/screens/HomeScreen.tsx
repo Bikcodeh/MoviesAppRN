@@ -7,6 +7,7 @@ import { useMovies } from './../hooks/useMovies';
 import { MoviePoster } from '../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MoviesCarousel } from './../components/MoviesCarousel';
+import { GradientBackground } from '../components/GradientBackground';
 
 const { width: windowWidth } = Dimensions.get('window');
 
@@ -24,22 +25,24 @@ export const HomeScreen = () => {
     }
 
     return (
-        <ScrollView>
-            <View style={{ marginTop: top + 20 }}>
-                <View style={{ height: 440 }}>
-                    <Carousel
-                        data={nowPlaying}
-                        renderItem={({ item }: any) => <MoviePoster movie={item} />}
-                        sliderWidth={windowWidth}
-                        itemWidth={300}
-                        inactiveSlideOpacity={0.9}
-                    />
+        <GradientBackground>
+            <ScrollView>
+                <View style={{ marginTop: top + 20 }}>
+                    <View style={{ height: 440 }}>
+                        <Carousel
+                            data={nowPlaying}
+                            renderItem={({ item }: any) => <MoviePoster movie={item} />}
+                            sliderWidth={windowWidth}
+                            itemWidth={300}
+                            inactiveSlideOpacity={0.9}
+                        />
+                    </View>
+                    { /* Favorite movies */}
+                    <MoviesCarousel movies={popular} title='Top movies' />
+                    <MoviesCarousel movies={topRated} title='Top rated' />
+                    <MoviesCarousel movies={upcoming} title='Upcoming' />
                 </View>
-                { /* Favorite movies */}
-                <MoviesCarousel movies={popular} title='Top movies' />
-                <MoviesCarousel movies={topRated} title='Top rated' />
-                <MoviesCarousel movies={upcoming} title='Upcoming' />
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </GradientBackground>
     )
 }
