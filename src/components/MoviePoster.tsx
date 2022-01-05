@@ -37,7 +37,8 @@ export const MoviePoster = ({ movie, width = 300, height = 420 }: Props) => {
 const styles = StyleSheet.create({
     image: {
         flex: 1,
-        borderRadius: 18
+        borderRadius: 18,
+        paddingBottom: 25
     },
     imageContainer: {
         flex: 1,
