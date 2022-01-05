@@ -13,7 +13,7 @@ const screenHeight = Dimensions.get('screen').height
 export const DetailScreen = ({ route }: Props) => {
 
     const movie = route.params;
-    const data = useMovieDetails(movie.id);
+    const { isLoading, cast, movieFull } = useMovieDetails(movie.id);
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
     return (
